@@ -1,5 +1,3 @@
-//Zuerst Daten lesen
-
 const todoList = [];
 
 function addContent() {
@@ -9,14 +7,33 @@ function addContent() {
     done: false,
     createdAt: "",
   };
+
   const inputContent = document.getElementById("todo-input");
+
   if (inputContent.value.trim() !== "") {
     const timestamp = Date.now();
+
     todoCard.id = timestamp;
-    todoCard.createdAt = timestamp;
+
+    const date = new Date(timestamp);
+
+    const formattedDate = date.toLocaleDateString("de-DE", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+
+    const formattedTime = date.toLocaleTimeString("de-DE", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    todoCard.createdAt = `${formattedDate} ${formattedTime}`;
     todoCard.content = inputContent.value;
+
     inputContent.value = "";
     todoList.push(todoCard);
+
     renderTodo();
   }
 }
@@ -24,7 +41,15 @@ function addContent() {
 function createTodoCard(todoCard) {
   const todoDiv = document.createElement("div");
   const todoText = document.createTextNode(todoCard.content);
-  todoDiv.appendChild(todoText);
+  const textParagraph = document.createElement("p");
+  const timeSpan = document.createElement("span");
+  const todocreatedtime = document.createTextNode(todoCard.createdAt);
+
+  todoDiv.id = todoCard.id;
+  textParagraph.appendChild(todoText);
+  todoDiv.appendChild(textParagraph);
+  timeSpan.appendChild(todocreatedtime);
+  todoDiv.appendChild(timeSpan);
   return todoDiv;
 }
 
