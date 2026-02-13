@@ -35,12 +35,13 @@
       flex-direction: column;
       justify-content: space-between;
     }
-    .content {
+    #content {
       background-color: tomato;
       height: 85%;
       display: flex;
       justify-content: flex-start;
       flex-direction: column;
+      font-size: 3rem;
     }
 
     #todo-input {
@@ -70,7 +71,7 @@
           />
           <button class="add-todo-btn" onclick="addContent()">Add Todo</button>
         </div>
-        <div class="content">
+        <div id="content">
           <div class="todo-cards"></div>
         </div>
       </section>

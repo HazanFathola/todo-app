@@ -17,6 +17,15 @@ function addContent() {
     todoCard.content = inputContent.value;
     inputContent.value = "";
     todoList.push(todoCard);
-    console.log(todoList);
+    createTodoCard(todoCard);
   }
+}
+
+function createTodoCard(todoCard) {
+  const container = document.getElementById("content");
+  const todoDiv = document.createElement("div");
+  const todoText = document.createTextNode(todoCard.content);
+
+  todoDiv.appendChild(todoText);
+  container.appendChild(todoDiv);
 }
