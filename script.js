@@ -17,15 +17,22 @@ function addContent() {
     todoCard.content = inputContent.value;
     inputContent.value = "";
     todoList.push(todoCard);
-    createTodoCard(todoCard);
+    renderTodo();
   }
 }
 
 function createTodoCard(todoCard) {
-  const container = document.getElementById("content");
   const todoDiv = document.createElement("div");
   const todoText = document.createTextNode(todoCard.content);
-
   todoDiv.appendChild(todoText);
-  container.appendChild(todoDiv);
+  return todoDiv;
+}
+
+function renderTodo() {
+  const container = document.getElementById("content");
+  container.innerHTML = "";
+  for (let todoCard of todoList) {
+    const todoDiv = createTodoCard(todoCard);
+    container.appendChild(todoDiv);
+  }
 }
