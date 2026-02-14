@@ -80,6 +80,7 @@ function createTodoCard(todoCard) {
 function renderTodo() {
   const container = document.getElementById("content");
   container.innerHTML = "";
+  sortTodoCards();
   for (let todoCard of todoList) {
     const todoDiv = createTodoCard(todoCard);
     container.appendChild(todoDiv);
@@ -95,4 +96,21 @@ function updateTodo(id) {
   if (!foundTodo) return;
   foundTodo.done = !foundTodo.done;
   renderTodo();
+}
+
+function sortTodoCards() {
+  todoList.sort((a, b) => {
+    if (a.done !== b.done) {
+      if (a.done === false) {
+        return -1;
+      } else {
+        return 1;
+      }
+    }
+    if (Number(a.id) < Number(b.id)) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
 }
