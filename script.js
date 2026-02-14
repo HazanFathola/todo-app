@@ -1,4 +1,4 @@
-const todoList = [];
+let todoList = [];
 
 function addContent() {
   const todoCard = {
@@ -13,7 +13,7 @@ function addContent() {
   if (inputContent.value.trim() !== "") {
     const timestamp = Date.now();
 
-    todoCard.id = timestamp;
+    todoCard.id = String(timestamp);
 
     const date = new Date(timestamp);
 
@@ -40,16 +40,40 @@ function addContent() {
 
 function createTodoCard(todoCard) {
   const todoDiv = document.createElement("div");
+  todoDiv.id = todoCard.id;
   const todoText = document.createTextNode(todoCard.content);
   const textParagraph = document.createElement("p");
-  const timeSpan = document.createElement("span");
-  const todocreatedtime = document.createTextNode(todoCard.createdAt);
 
-  todoDiv.id = todoCard.id;
+  const timeSpan = document.createElement("span");
+  const todoCreatedTime = document.createTextNode(todoCard.createdAt);
+
+  const deleteBtn = document.createElement("button");
+  const deleteText = document.createTextNode("Todo löschen");
+  deleteBtn.addEventListener("click", () => deleteTodo(todoCard.id));
+
+  const updateTodoBtn = document.createElement("button");
+  updateTodoBtn.addEventListener("click", () => updateTodo(todoCard.id));
+
+  if (todoCard.done) {
+    todoDiv.classList.add("done");
+    const updateUndoneText = document.createTextNode("Rückgängig");
+    updateTodoBtn.appendChild(updateUndoneText);
+  } else {
+    const updateDoneText = document.createTextNode("Erledigt");
+    updateTodoBtn.appendChild(updateDoneText);
+  }
+
   textParagraph.appendChild(todoText);
   todoDiv.appendChild(textParagraph);
-  timeSpan.appendChild(todocreatedtime);
+
+  timeSpan.appendChild(todoCreatedTime);
   todoDiv.appendChild(timeSpan);
+
+  deleteBtn.appendChild(deleteText);
+  todoDiv.appendChild(deleteBtn);
+
+  todoDiv.appendChild(updateTodoBtn);
+
   return todoDiv;
 }
 
@@ -60,4 +84,15 @@ function renderTodo() {
     const todoDiv = createTodoCard(todoCard);
     container.appendChild(todoDiv);
   }
+}
+function deleteTodo(id) {
+  todoList = todoList.filter((todo) => todo.id !== id);
+  renderTodo();
+}
+
+function updateTodo(id) {
+  const foundTodo = todoList.find((todo) => todo.id === id);
+  if (!foundTodo) return;
+  foundTodo.done = !foundTodo.done;
+  renderTodo();
 }
