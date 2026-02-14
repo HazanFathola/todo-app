@@ -35,6 +35,7 @@ function addContent() {
     todoList.push(todoCard);
 
     renderTodo();
+    saveToLocalStorage();
   }
 }
 
@@ -113,4 +114,13 @@ function sortTodoCards() {
       return -1;
     }
   });
+}
+function saveToLocalStorage() {
+  localStorage.setItem("todoList", JSON.stringify(todoList));
+}
+function loadFromLocalStorage() {
+  const todoListLocalStorage = JSON.parse(localStorage.getItem("todoList"));
+  if (todoListLocalStorage !== null) {
+    todoList = todoListLocalStorage;
+  }
 }
