@@ -36,8 +36,8 @@ function addContent() {
     inputContent.value = "";
     todoList.push(todoCard);
 
-    renderTodo();
     saveToLocalStorage();
+    renderTodo();
   }
 }
 
@@ -91,6 +91,7 @@ function renderTodo() {
 }
 function deleteTodo(id) {
   todoList = todoList.filter((todo) => todo.id !== id);
+  saveToLocalStorage();
   renderTodo();
 }
 
@@ -98,6 +99,7 @@ function updateTodo(id) {
   const foundTodo = todoList.find((todo) => todo.id === id);
   if (!foundTodo) return;
   foundTodo.done = !foundTodo.done;
+  saveToLocalStorage();
   renderTodo();
 }
 
