@@ -1,5 +1,7 @@
 let todoList = [];
 
+document.addEventListener("DOMContentLoaded", initTodoApp);
+
 function addContent() {
   const todoCard = {
     id: "",
@@ -123,4 +125,9 @@ function loadFromLocalStorage() {
   if (todoListLocalStorage !== null) {
     todoList = todoListLocalStorage;
   }
+}
+
+function initTodoApp() {
+  loadFromLocalStorage();
+  renderTodo();
 }
