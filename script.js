@@ -46,36 +46,41 @@ function createTodoCard(todoCard) {
   todoDiv.id = todoCard.id;
   const todoText = document.createTextNode(todoCard.content);
   const textParagraph = document.createElement("p");
+  textParagraph.classList.add("todo-text");
 
   const timeSpan = document.createElement("span");
   const todoCreatedTime = document.createTextNode(todoCard.createdAt);
 
   const deleteBtn = document.createElement("button");
-  const deleteText = document.createTextNode("Todo löschen");
+  deleteBtn.classList.add("delete-btn");
+
   deleteBtn.addEventListener("click", () => deleteTodo(todoCard.id));
 
   const updateTodoBtn = document.createElement("button");
   updateTodoBtn.addEventListener("click", () => updateTodo(todoCard.id));
 
   if (todoCard.done) {
-    todoDiv.classList.add("done");
-    const updateUndoneText = document.createTextNode("Rückgängig");
-    updateTodoBtn.appendChild(updateUndoneText);
+    todoDiv.classList.add("done-div");
+    updateTodoBtn.classList.add("update-btn");
   } else {
-    const updateDoneText = document.createTextNode("Erledigt");
-    updateTodoBtn.appendChild(updateDoneText);
+    updateTodoBtn.classList.add("update-btn");
+    updateTodoBtn.classList.add("undone");
   }
+
+  const todoActions = document.createElement("div");
+  todoActions.classList.add("todo-actions");
 
   textParagraph.appendChild(todoText);
   todoDiv.appendChild(textParagraph);
 
   timeSpan.appendChild(todoCreatedTime);
+  timeSpan.classList.add("time-stamp");
   todoDiv.appendChild(timeSpan);
 
-  deleteBtn.appendChild(deleteText);
-  todoDiv.appendChild(deleteBtn);
-
-  todoDiv.appendChild(updateTodoBtn);
+  todoActions.appendChild(deleteBtn);
+  todoActions.appendChild(updateTodoBtn);
+  todoDiv.appendChild(todoActions);
+  todoDiv.classList.add("todo-card");
 
   return todoDiv;
 }
